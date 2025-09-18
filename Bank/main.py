@@ -60,8 +60,8 @@ class Bank:
             
             Bank.__update()
             
-    def depositMoney(self):
-        accountNumber=input("Enter your account number :- ")
+    def withdrawmoney(self):
+        accountNumber= int(input("Enter your account numebr :- "))
         pin=int(input("Enter your pin :- "))
         # print(Bank.data)
         userdata= [i for i in Bank.data if i['accountNumber']==accountNumber and i['pin']==pin]
@@ -70,14 +70,66 @@ class Bank:
         if userdata==False:
             print("Sorry no Account Found !!")
         else :
+            amount=int(input("How mush you wants to withdrwal"))
+            if amount<userdata[0]['balance']:
+                input("Sorry ! your balance is insufficient || balance is low !! ")
+            else:
+                userdata[0]['balance']-=amount
+                Bank.__update()
+        
+            
+    def depositMoney(self):
+        accountNumber=input("Enter your account number :- ")
+        pin=int(input("Enter your pin :- "))
+        # print(Bank.data)
+        userdata= [i for i in Bank.data if i['accountNumber']==accountNumber and i['pin']==pin]
+        
+        # print(userdata)
+        if userdata==False:
+            print("**********************Sorry no Account Found !! ***********************")
+        else :
             amount=int(input("How mush you wants to deposit"))
             if amount<0 or amount>=10000:
-                input("Sorry the amount is too many you can depost below 10000 or above 0 ")
+                input("*************Sorry the amount is too many you can depost below 10000 or above 0 ***************")
             else:
                 userdata[0]['balance']+=amount
                 Bank.__update()
+    
+    
+    def updateDetails(self):
+        accountNumber=input("Enter your account Number")
+        pin=int(input("Enter your pin"))
         
+        userdata=[i for i in Bank.data if i['accountNumber']==accountNumber and i['pin']==pin]
         
+        if userdata==False:
+            print("Sorry no any Account found !!")
+        else : 
+            print("******************Enter the details where you wants to update else skip this **********")
+            print("******************you don't update the AccountNumber , age and balance **********")
+            changeEmail= input("enter the new  email or skip ")
+            changename=input("Enter your new name or skip ")
+            chnagepin=input("Enter you new Pin ")
+            
+            if changeEmail=="":
+                userdata[0]['email']
+            
+        
+    def viewDetails(self):
+        accountNumber=input("*****Enter your account number :- ")
+        pin=int(input("*********Enter your pin :- "))
+        
+        userdata= [i for i in Bank.data if i['accountNumber']==accountNumber and i['pin']==pin]
+        
+        if userdata==False:
+            print("******************Sorry no Account found !!********************")
+        else :
+            info= userdata[0]
+            for i in info:
+                print(f"{i} :  {info[i]}")
+                
+        
+            
         
 
 
@@ -103,3 +155,10 @@ if  check==1:
     user.createAccount()
 if check==2:
     user.depositMoney()
+if check==3:
+    user.depositMoney()
+if check==4:
+    user.viewDetails()
+if check==5:
+    user.updateDetails()
+    
