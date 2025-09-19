@@ -107,12 +107,37 @@ class Bank:
         else : 
             print("******************Enter the details where you wants to update else skip this **********")
             print("******************you don't update the AccountNumber , age and balance **********")
-            changeEmail= input("enter the new  email or skip ")
-            changename=input("Enter your new name or skip ")
-            chnagepin=input("Enter you new Pin ")
             
-            if changeEmail=="":
-                userdata[0]['email']
+            newdata = {
+                "name": input("please tell new name or press enter : "),
+                "email":input("please tell your new Email or press enter to skip :"),
+                "pin": input("enter new Pin or press enter to skip: ")
+            }
+            
+            if newdata["name"] == "":
+                newdata["name"] = userdata[0]['name']
+            if newdata["email"] == "":
+                newdata["email"] = userdata[0]['email']
+            if newdata["pin"] == "":
+                newdata["pin"] = userdata[0]['pin']
+            
+            newdata['age'] = userdata[0]['age']
+
+            newdata['accountNumber'] = userdata[0]['accountNumber']
+            newdata['balance'] = userdata[0]['balance']
+            
+            if type(newdata['pin']) == str:
+                newdata['pin'] = int(newdata['pin'])
+            
+
+            for i in newdata:
+                 if newdata[i] == userdata[0][i]:
+                     continue
+                 else:
+                     userdata[0][i] = newdata[i]
+
+            Bank.__update()
+            print("details updated successfully")
             
         
     def viewDetails(self):
